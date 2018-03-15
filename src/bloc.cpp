@@ -2,14 +2,16 @@
 
 using namespace std;
 
-Bloc::Bloc() : height(0), width(0), contenu(""){}
-Bloc::Bloc(std::string contenuInput) : height(0), width(0), contenu(contenuInput){}
+Bloc::Bloc() : height(1), width(1), contenu(' '){}
+
+Bloc::Bloc(char const caractere) : height(1), width(1), contenu(caractere){}
+
 Bloc::~Bloc(){}
 
 
-void Bloc::set(string const equation)
+void Bloc::set(char const caractere)
 {
-	contenu = equation;
+	contenu = caractere;
 }
 
 void Bloc::print(void)

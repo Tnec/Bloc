@@ -6,14 +6,21 @@ class Bloc
 	private:
 		int height;
 		int width;
-		std::string contenu;
+		char contenu;
 
 	public:
 		Bloc();
-		Bloc(std::string contenuInput);
+		Bloc(char const caractere);
 		~Bloc();
-		void set( std::string const equation);
+		void set( char const caractere);
 		void print( void );
 
 
 };
+
+/*
+class Debug : public Bloc
+{
+
+};
+*/
