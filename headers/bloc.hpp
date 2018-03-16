@@ -30,6 +30,7 @@ class Debug : public Bloc
 		Debug(char const caractere);
 		Debug(char const caractere, int setHeight, int setWidth, int setRefHeight, int setRefWidth);
 
-		void print( void );
+		void print(void);
+		void printLigne(int numLigne);
 };
 

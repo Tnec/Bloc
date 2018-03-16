@@ -56,6 +56,18 @@ void Debug::print(void)
 	}
 }
 
+void Debug::printLigne(int numLigne)
+{
+	int i = numLigne;
 
-
+	for(int j =  -this->refWidth; j < (this->width -this->refWidth); j++){
+		if ( !i && !j)
+		{
+			cout << '+';
+		} else {			
+			cout << this->contenu;
+		}
+	}
+	cout << endl;
+}
 

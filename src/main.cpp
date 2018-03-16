@@ -14,8 +14,12 @@ int main(){
 	bloc1.set('x');
 	bloc1.print();
 
-	cout << "Affichage d'un Bloc Debug" << endl;
+	cout << endl <<"Affichage d'un Bloc Debug" << endl;
 	BlocDebug->print();	
+
+	cout << endl << "Affichage d'une ligne Debug" << endl;
+	BlocDebug->printLigne(0);	
+
 
 	return 0;
 }
