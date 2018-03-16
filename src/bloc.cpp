@@ -2,13 +2,18 @@
 
 using namespace std;
 
-Bloc::Bloc() : contenu(' '), height(1), width(1){}
+/**************/
+/* class Bloc */
+/**************/
 
-Bloc::Bloc(char const caractere) : contenu(caractere), height(1), width(1){}
+Bloc::Bloc() 
+: contenu(' '), height(1), width(1), refHeight(0), refWidth(0){}
+
+Bloc::Bloc(char const caractere) 
+: contenu(caractere), height(1), width(1), refHeight(0), refWidth(0){}
 
 Bloc::Bloc(char const caractere, int setHeight, int setWidth, int setRefHeight, int setRefWidth)
-: contenu(caractere), height(setHeight), width(setWidth), refHeight(setRefHeight), refWidth(setRefWidth)
-{}
+: contenu(caractere), height(setHeight), width(setWidth), refHeight(setRefHeight), refWidth(setRefWidth){}
 
 Bloc::~Bloc(){}
 
@@ -22,3 +27,25 @@ void Bloc::print(void)
 {
 	cout << contenu << endl;
 }
+
+
+/***************/
+/* class Debug */
+/***************/
+
+Debug::Debug() : Bloc(' ',1,1,0,0){}
+
+Debug::Debug(char const caractere) : Bloc(caractere,1,1,0,0){}
+
+Debug::Debug(char const caractere, int setHeight, int setWidth, int setRefHeight, int setRefWidth)
+: Bloc( caractere, setHeight, setWidth, setRefHeight, setRefWidth){}
+
+/*
+void Debug::print(void)
+{
+//	for(int i = this.
+}
+*/
+
+
+//contenu(' '), height(1), width(1), refHeight(0), refWidth(0){}

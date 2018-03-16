@@ -21,12 +21,14 @@ class Bloc
 
 };
 
-/*
+
 class Debug : public Bloc
 {
 	private:
 
 	public:
-		Debug(); 	
+		Debug();
+		Debug(char const caractere);
+		Debug(char const caractere, int setHeight, int setWidth, int setRefHeight, int setRefWidth);
 };
-*/
+
