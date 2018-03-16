@@ -4,13 +4,16 @@
 class Bloc
 {
 	private:
-		int height;
-		int width;
 		char contenu;
+		int height; 
+		int width;
+		int refHeight; 
+		int refWidth;
 
 	public:
 		Bloc();
 		Bloc(char const caractere);
+		Bloc(char const caractere, int setHeight, int setWidth, int setRefHeight, int setRefWidth);
 		~Bloc();
 		void set( char const caractere);
 		void print( void );
@@ -21,6 +24,9 @@ class Bloc
 /*
 class Debug : public Bloc
 {
+	private:
 
+	public:
+		Debug(); 	
 };
 */

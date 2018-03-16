@@ -1,2 +1,4 @@
 build
 bloc
+headers/.*
+src/.*

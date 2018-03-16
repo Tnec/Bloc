@@ -2,9 +2,13 @@
 
 using namespace std;
 
-Bloc::Bloc() : height(1), width(1), contenu(' '){}
+Bloc::Bloc() : contenu(' '), height(1), width(1){}
 
-Bloc::Bloc(char const caractere) : height(1), width(1), contenu(caractere){}
+Bloc::Bloc(char const caractere) : contenu(caractere), height(1), width(1){}
+
+Bloc::Bloc(char const caractere, int setHeight, int setWidth, int setRefHeight, int setRefWidth)
+: contenu(caractere), height(setHeight), width(setWidth), refHeight(setRefHeight), refWidth(setRefWidth)
+{}
 
 Bloc::~Bloc(){}
 
