@@ -3,7 +3,7 @@
 
 class Bloc
 {
-	private:
+	protected:
 		char contenu;
 		int height; 
 		int width;
@@ -18,7 +18,6 @@ class Bloc
 		void set( char const caractere);
 		void print( void );
 
-
 };
 
 
@@ -30,5 +29,7 @@ class Debug : public Bloc
 		Debug();
 		Debug(char const caractere);
 		Debug(char const caractere, int setHeight, int setWidth, int setRefHeight, int setRefWidth);
+
+		void print( void );
 };
 
