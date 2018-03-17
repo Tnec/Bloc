@@ -90,7 +90,7 @@ Over::Over(Debug* debugOver, Debug* debugUnder)
 			// cas1 		//debugUnder->getWidth()
 			// cas2 		//debugOver->getWidth()
 			// cas3 		//debugUnder->getRefWidth() + debugOver->getWidth() - debugOver->getRefWidth()
-			// cas3 		//debugOver->getRefWidth() + blocunder->getWidth() - debugUnder->getRefWidth()
+			// cas4 		//debugOver->getRefWidth() + blocunder->getWidth() - debugUnder->getRefWidth()
 
 			(int)(debugOver->getHeight() - debugOver->getRefHeight() + debugUnder->getRefHeight())/2 + debugOver->getRefHeight(),		//refheight
 
@@ -120,8 +120,7 @@ void Over::printLigne(int numLigne)
 			&& numLigne <= this->getHeight() - over->getHeight() - this->getRefHeight() )
 	{
 		//Bourrage avant bloc	
-		if(this->getRefWidth() > over->getRefWidth())
-		{
+		if(this->getRefWidth() > over->getRefWidth()){
 			bourrage(this->getRefWidth(),over->getRefWidth());
 		}
 
@@ -129,9 +128,7 @@ void Over::printLigne(int numLigne)
 		over->printLigne( numLigne + this->getRefHeight() - over->getRefHeight());
 
 		//Bourrage après bloc
-
-		if(this->getWidth() - this->getRefWidth() > over->getWidth() - over->getRefWidth())
-		{
+		if(this->getWidth() - this->getRefWidth() > over->getWidth() - over->getRefWidth()){
 			bourrage(this->getWidth() - this->getRefWidth(),over->getWidth() - over->getRefWidth());		
 		}
 	}
@@ -139,16 +136,15 @@ void Over::printLigne(int numLigne)
 			&& numLigne<= this->getHeight() - this->getRefHeight() - 1)
 	{
 		//Bourrage avant bloc	
-		if(this->getRefWidth() > under->getRefWidth())
-		{
+		if(this->getRefWidth() > under->getRefWidth()){
 			bourrage(this->getRefWidth(),under->getRefWidth());
 		}
-
+		
+		//Affichage ligne
 		under->printLigne( numLigne -this->getRefHeight() +1);
 
 		//Bourrage après bloc
-		if(this->getWidth() - this->getRefWidth() > under->getWidth() - under->getRefWidth())
-		{
+		if(this->getWidth() - this->getRefWidth() > under->getWidth() - under->getRefWidth()){
 			bourrage(this->getWidth() - this->getRefWidth(),under->getWidth() - under->getRefWidth());		
 		}
 	}
