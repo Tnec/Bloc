@@ -7,67 +7,155 @@ using namespace std;
 /**************/
 
 Bloc::Bloc() 
-	: contenu(' '), height(1), width(1), refHeight(0), refWidth(0){}
+	: height(1), width(1), refHeight(0), refWidth(0){}
 
-Bloc::Bloc(char const caractere) 
-	: contenu(caractere), height(1), width(1), refHeight(0), refWidth(0){}
-
-Bloc::Bloc(char const caractere, int setHeight, int setWidth, int setRefHeight, int setRefWidth)
-	: contenu(caractere), height(setHeight), width(setWidth), refHeight(setRefHeight), refWidth(setRefWidth){}
+Bloc::Bloc(int setHeight, int setWidth, int setRefHeight, int setRefWidth)
+	: height(setHeight), width(setWidth), refHeight(setRefHeight), refWidth(setRefWidth){}
 
 	Bloc::~Bloc(){}
 
+	int Bloc::getHeight(void) {return height;}
+	int Bloc::getWidth(void) {return width;}
+	int Bloc::getRefHeight(void) {return refHeight;}
+	int Bloc::getRefWidth(void) {return refWidth;}
 
-void Bloc::set(char const caractere)
+	/*
+	   char Bloc::getContenu(void) {return contenu;}
+	 */
+
+void Bloc::printSpec(void)
 {
-	contenu = caractere;
+	cout << "height :" << height << endl;
+	cout << "width :" << width << endl;
+	cout << "refHeight :" << refHeight << endl;
+	cout << "refWidth :" << refWidth << endl;
 }
-
-void Bloc::print(void)
-{
-	cout << contenu << endl;
-}
-
 
 /***************/
 /* class Debug */
 /***************/
 
-Debug::Debug() : Bloc(' ',1,1,0,0){}
+Debug::Debug() : Bloc(1,1,0,0), contenu('.'){}
 
-Debug::Debug(char const caractere) : Bloc(caractere,1,1,0,0){}
+Debug::Debug(char const caractere) : Bloc(1,1,0,0), contenu(caractere){}
 
 Debug::Debug(char const caractere, int setHeight, int setWidth, int setRefHeight, int setRefWidth)
-	: Bloc( caractere, setHeight, setWidth, setRefHeight, setRefWidth){}
+	: Bloc( setHeight, setWidth, setRefHeight, setRefWidth), contenu(caractere){}
 
+	Debug::~Debug(){}
 
 void Debug::print(void)
 {
-	for(int i = -this->refHeight; i < (this->height - refHeight); i++){
-		for(int j =  -this->refWidth; j < (this->width -this->refWidth); j++){
-			if ( !i && !j)
-			{
-				cout << '+';
-			} else {			
-				cout << this->contenu;
-			}
-		}
+	for(int i = -this->getRefHeight(); i < (this->getHeight() - this->getRefHeight()); i++){
+		this->printLigne(i);		
 		cout << endl;
 	}
 }
 
 void Debug::printLigne(int numLigne)
 {
-	int i = numLigne;
+	if(numLigne <= (getHeight()-getRefHeight()-1)  && numLigne >= -getRefHeight())
+	{
+		for(int j =  -this->getRefWidth(); j < (this->getWidth() -this->getRefWidth()); j++){
+			if ( !numLigne && !j)
+			{
+				cout << '+';
+			} else {			
+				cout << this->contenu;
+			}
+		}
+	}	
+}
 
-	for(int j =  -this->refWidth; j < (this->width -this->refWidth); j++){
-		if ( !i && !j)
+
+/**************/
+/* class Over */
+/**************/
+
+Over::Over() 
+	: Debug('.',1,1,0,0), over(NULL), under(NULL){}
+
+
+
+Over::Over(Debug* debugOver, Debug* debugUnder)
+	: Debug(
+			'.',
+
+			debugOver->getHeight() + debugUnder->getHeight(), 				//height
+
+			max( 								//width
+				max (debugUnder->getWidth() , debugOver->getWidth()), 
+				max(debugUnder->getRefWidth() + debugOver->getWidth() - debugOver->getRefWidth() , 
+					debugOver->getRefWidth() + debugUnder->getWidth() - debugUnder->getRefWidth())),
+			// cas1 		//debugUnder->getWidth()
+			// cas2 		//debugOver->getWidth()
+			// cas3 		//debugUnder->getRefWidth() + debugOver->getWidth() - debugOver->getRefWidth()
+			// cas3 		//debugOver->getRefWidth() + blocunder->getWidth() - debugUnder->getRefWidth()
+
+			(int)(debugOver->getHeight() - debugOver->getRefHeight() + debugUnder->getRefHeight())/2 + debugOver->getRefHeight(),		//refheight
+
+			max(debugOver->getRefWidth(),	debugUnder->getRefWidth())),			//refwidth
+	// cas1 		//debugUnder->getRefWidth()
+	// cas2 		//debugOver->getRefWidth()
+	over(debugOver),
+	under(debugUnder){}
+
+	Over::~Over(){}
+
+
+void Over::print(void)
+{
+	for(int i = -this->getRefHeight(); i < this->getHeight() - this->getRefHeight(); i++)
+	{
+		this->printLigne(i);
+		cout << endl;
+	}
+}
+
+void Over::printLigne(int numLigne)
+{
+
+	// Si je suis dans le bloc Over
+	if( numLigne >= -this->getRefHeight()
+			&& numLigne <= this->getHeight() - over->getHeight() - this->getRefHeight() )
+	{
+		//Bourrage avant bloc	
+		if(this->getRefWidth() > over->getRefWidth())
 		{
-			cout << '+';
-		} else {			
-			cout << this->contenu;
+			bourrage(this->getRefWidth(),over->getRefWidth());
+		}
+
+		//affichage ligne
+		over->printLigne( numLigne + this->getRefHeight() - over->getRefHeight());
+
+		//Bourrage après bloc
+
+		if(this->getWidth() - this->getRefWidth() > over->getWidth() - over->getRefWidth())
+		{
+			bourrage(this->getWidth() - this->getRefWidth(),over->getWidth() - over->getRefWidth());		
 		}
 	}
-	cout << endl;
+	else if ( numLigne >= this->getHeight() - under->getHeight() - this->getRefHeight()
+			&& numLigne<= this->getHeight() - this->getRefHeight() - 1)
+	{
+		//Bourrage avant bloc	
+		if(this->getRefWidth() > under->getRefWidth())
+		{
+			bourrage(this->getRefWidth(),under->getRefWidth());
+		}
+
+		under->printLigne( numLigne -this->getRefHeight() +1);
+
+		//Bourrage après bloc
+		if(this->getWidth() - this->getRefWidth() > under->getWidth() - under->getRefWidth())
+		{
+			bourrage(this->getWidth() - this->getRefWidth(),under->getWidth() - under->getRefWidth());		
+		}
+	}
+}
+
+void Over::bourrage(int a, int b)
+{
+	for(int i = 0; i < max(a,b) - min(a,b); i++) { cout << "."; }
 }
 
