@@ -73,10 +73,10 @@ void Debug::printLigne(int numLigne)
 /**************/
 
 Over::Over() 
-	: Debug('.',1,1,0,0), over(NULL), under(NULL){}
+	: Bloc(1,1,0,0), over(NULL), under(NULL){}
 
 
-
+/*
 Over::Over(Debug* debugOver, Debug* debugUnder)
 	: Debug(
 			'.',
@@ -99,7 +99,7 @@ Over::Over(Debug* debugOver, Debug* debugUnder)
 	// cas2 		//debugOver->getRefWidth()
 	over(debugOver),
 	under(debugUnder){}
-
+*/
 	Over::~Over(){}
 
 

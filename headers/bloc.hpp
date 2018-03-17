@@ -38,11 +38,11 @@ class Debug : public Bloc
 		void printLigne(int numLigne);
 };
 
-class Over : public Debug
+class Over : public Bloc
 {
 	private:
-		Debug* over;
-		Debug* under;
+		Bloc* over;
+		Bloc* under;
 
 	public:
 		Over();
