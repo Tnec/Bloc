@@ -1,10 +1,12 @@
 #include <iostream>
 #include <string>
+#include <algorithm>
+
+#define BOURRAGE '.'
 
 class Bloc
 {
-	private:
-		char contenu;
+	protected:
 		int height; 
 		int width;
 		int refHeight; 
@@ -12,21 +14,50 @@ class Bloc
 
 	public:
 		Bloc();
-		Bloc(char const caractere);
-		Bloc(char const caractere, int setHeight, int setWidth, int setRefHeight, int setRefWidth);
+		Bloc(int setHeight, int setWidth, int setRefHeight, int setRefWidth);
 		~Bloc();
-		void set( char const caractere);
-		void print( void );
 
-
+		int getHeight(void);
+		int getWidth(void);
+		int getRefHeight(void);
+		int getRefWidth(void);
+		void printSpec(void);
+//		virtual void print(void);
+		virtual void printLigne(int numLigne);
 };
 
-/*
+
 class Debug : public Bloc
 {
 	private:
+		char contenu;
 
 	public:
-		Debug(); 	
+		Debug();
+		Debug(char const caractere);
+		Debug(char const caractere, int setHeight, int setWidth, int setRefHeight, int setRefWidth);
+		~Debug();
+
+		void print(void);
+		virtual void printLigne(int numLigne);
 };
-*/
+
+
+
+class Over : public Bloc
+{
+	private:
+		Bloc* over;
+		Bloc* under;
+
+	public:
+		Over();
+		Over(Bloc* debugOver, Bloc* debugUnder);
+		~Over();
+
+		void print(void);
+		virtual void printLigne(int numLigne);
+
+		void bourrage(int a, int b);
+};
+
