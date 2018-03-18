@@ -19,10 +19,6 @@ Bloc::Bloc(int setHeight, int setWidth, int setRefHeight, int setRefWidth)
 	int Bloc::getRefHeight(void) {return refHeight;}
 	int Bloc::getRefWidth(void) {return refWidth;}
 
-	/*
-	   char Bloc::getContenu(void) {return contenu;}
-	 */
-
 void Bloc::printSpec(void)
 {
 	cout << "height :" << height << endl;
@@ -30,6 +26,13 @@ void Bloc::printSpec(void)
 	cout << "refHeight :" << refHeight << endl;
 	cout << "refWidth :" << refWidth << endl;
 }
+
+
+void Bloc::printLigne(int numLigne)
+{
+	
+}
+
 
 /***************/
 /* class Debug */
@@ -72,14 +75,15 @@ void Debug::printLigne(int numLigne)
 /* class Over */
 /**************/
 
+
 Over::Over() 
 	: Bloc(1,1,0,0), over(NULL), under(NULL){}
 
 
-/*
-Over::Over(Debug* debugOver, Debug* debugUnder)
-	: Debug(
-			'.',
+
+Over::Over(Bloc* debugOver, Bloc* debugUnder)
+	: Bloc(
+			//			'.',
 
 			debugOver->getHeight() + debugUnder->getHeight(), 				//height
 
@@ -99,7 +103,7 @@ Over::Over(Debug* debugOver, Debug* debugUnder)
 	// cas2 		//debugOver->getRefWidth()
 	over(debugOver),
 	under(debugUnder){}
-*/
+
 	Over::~Over(){}
 
 
@@ -107,6 +111,7 @@ void Over::print(void)
 {
 	for(int i = -this->getRefHeight(); i < this->getHeight() - this->getRefHeight(); i++)
 	{
+		cout << i << ". ";
 		this->printLigne(i);
 		cout << endl;
 	}
@@ -115,9 +120,16 @@ void Over::print(void)
 void Over::printLigne(int numLigne)
 {
 
+
+	int borneOverInf, borneOverSup, borneUnderInf, borneUnderSup;
+
+	borneOverInf = -this->getRefHeight();
+	borneOverSup = this->getHeight()- under->getHeight()- (this->getRefHeight()+1);
+	borneUnderInf = this->getHeight() - under->getHeight() - this->getRefHeight();
+	borneUnderSup = this->getHeight() - this->getRefHeight() - 1;
+
 	// Si je suis dans le bloc Over
-	if( numLigne >= -this->getRefHeight()
-			&& numLigne <= this->getHeight() - over->getHeight() - this->getRefHeight() )
+	if( numLigne >= borneOverInf	&& numLigne <= borneOverSup )
 	{
 		//Bourrage avant bloc	
 		if(this->getRefWidth() > over->getRefWidth()){
@@ -132,16 +144,15 @@ void Over::printLigne(int numLigne)
 			bourrage(this->getWidth() - this->getRefWidth(),over->getWidth() - over->getRefWidth());		
 		}
 	}
-	else if ( numLigne >= this->getHeight() - under->getHeight() - this->getRefHeight()
-			&& numLigne<= this->getHeight() - this->getRefHeight() - 1)
+	else if ( numLigne >= borneUnderInf && numLigne<= borneUnderSup)
 	{
 		//Bourrage avant bloc	
 		if(this->getRefWidth() > under->getRefWidth()){
 			bourrage(this->getRefWidth(),under->getRefWidth());
 		}
-		
+
 		//Affichage ligne
-		under->printLigne( numLigne -this->getRefHeight() +1);
+		under->printLigne( numLigne -(-this->getRefHeight()+over->getHeight()+under->getRefHeight() ));
 
 		//Bourrage après bloc
 		if(this->getWidth() - this->getRefWidth() > under->getWidth() - under->getRefWidth()){
@@ -152,6 +163,6 @@ void Over::printLigne(int numLigne)
 
 void Over::bourrage(int a, int b)
 {
-	for(int i = 0; i < max(a,b) - min(a,b); i++) { cout << "."; }
+	for(int i = 0; i < max(a,b) - min(a,b); i++) { cout << BOURRAGE; }
 }
 
