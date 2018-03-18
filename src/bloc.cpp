@@ -81,28 +81,28 @@ Over::Over()
 
 
 
-Over::Over(Bloc* debugOver, Bloc* debugUnder)
+Over::Over(Bloc* blocOver, Bloc* blocUnder)
 	: Bloc(
 			//			'.',
 
-			debugOver->getHeight() + debugUnder->getHeight(), 				//height
+			blocOver->getHeight() + blocUnder->getHeight(), 				//height
 
 			max( 								//width
-				max (debugUnder->getWidth() , debugOver->getWidth()), 
-				max(debugUnder->getRefWidth() + debugOver->getWidth() - debugOver->getRefWidth() , 
-					debugOver->getRefWidth() + debugUnder->getWidth() - debugUnder->getRefWidth())),
-			// cas1 		//debugUnder->getWidth()
-			// cas2 		//debugOver->getWidth()
-			// cas3 		//debugUnder->getRefWidth() + debugOver->getWidth() - debugOver->getRefWidth()
-			// cas4 		//debugOver->getRefWidth() + blocunder->getWidth() - debugUnder->getRefWidth()
+				max (blocUnder->getWidth() , blocOver->getWidth()), 
+				max(blocUnder->getRefWidth() + blocOver->getWidth() - blocOver->getRefWidth() , 
+					blocOver->getRefWidth() + blocUnder->getWidth() - blocUnder->getRefWidth())),
+			// cas1 		//blocUnder->getWidth()
+			// cas2 		//blocOver->getWidth()
+			// cas3 		//blocUnder->getRefWidth() + blocOver->getWidth() - blocOver->getRefWidth()
+			// cas4 		//blocOver->getRefWidth() + blocunder->getWidth() - blocUnder->getRefWidth()
 
-			(int)(debugOver->getHeight() - debugOver->getRefHeight() + debugUnder->getRefHeight())/2 + debugOver->getRefHeight(),		//refheight
+			(int)(blocOver->getHeight() - blocOver->getRefHeight() + blocUnder->getRefHeight())/2 + blocOver->getRefHeight(),		//refheight
 
-			max(debugOver->getRefWidth(),	debugUnder->getRefWidth())),			//refwidth
-	// cas1 		//debugUnder->getRefWidth()
-	// cas2 		//debugOver->getRefWidth()
-	over(debugOver),
-	under(debugUnder){}
+			max(blocOver->getRefWidth(),	blocUnder->getRefWidth())),			//refwidth
+	// cas1 		//blocUnder->getRefWidth()
+	// cas2 		//blocOver->getRefWidth()
+	over(blocOver),
+	under(blocUnder){}
 
 	Over::~Over(){}
 
