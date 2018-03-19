@@ -15,15 +15,16 @@ class Bloc
 	public:
 		Bloc();
 		Bloc(int setHeight, int setWidth, int setRefHeight, int setRefWidth);
-		~Bloc();
+		virtual ~Bloc();
 
 		int getHeight(void);
 		int getWidth(void);
 		int getRefHeight(void);
 		int getRefWidth(void);
 		void printSpec(void);
-		virtual void print(void);
-		virtual void printLigne(int numLigne);
+
+		virtual void print(void) = 0;
+		virtual void printLigne(int numLigne) = 0;
 };
 
 
@@ -36,7 +37,7 @@ class Debug : public Bloc
 		Debug();
 		Debug(char const caractere);
 		Debug(char const caractere, int setHeight, int setWidth, int setRefHeight, int setRefWidth);
-		~Debug();
+		virtual ~Debug();
 
 		virtual void print(void);
 		virtual void printLigne(int numLigne);
@@ -53,7 +54,7 @@ class Over : public Bloc
 	public:
 		Over();
 		Over(Bloc* blocOver, Bloc* blocUnder);
-		~Over();
+		virtual ~Over();
 
 		virtual void print(void);
 		virtual void printLigne(int numLigne);
@@ -71,7 +72,7 @@ class Beside : public Bloc
 	public:
 		Beside();
 		Beside(Bloc* blocLeft, Bloc* blocRight);
-		~Beside();
+		virtual ~Beside();
 
 		virtual void print(void);
 		virtual void printLigne(int numLigne);

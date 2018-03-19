@@ -12,7 +12,7 @@ Bloc::Bloc()
 Bloc::Bloc(int setHeight, int setWidth, int setRefHeight, int setRefWidth)
 	: height(setHeight), width(setWidth), refHeight(setRefHeight), refWidth(setRefWidth){}
 
-	Bloc::~Bloc(){}
+Bloc::~Bloc(){}
 
 	int Bloc::getHeight(void) {return height;}
 	int Bloc::getWidth(void) {return width;}
@@ -26,11 +26,11 @@ void Bloc::printSpec(void)
 	cout << "refHeight :" << refHeight << endl;
 	cout << "refWidth :" << refWidth << endl;
 }
-
+/*
 void Bloc::print(void){}
 
 void Bloc::printLigne(int numLigne){}
-
+*/
 
 /***************/
 /* class Debug */
