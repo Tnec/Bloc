@@ -22,7 +22,7 @@ class Bloc
 		int getRefHeight(void);
 		int getRefWidth(void);
 		void printSpec(void);
-//		virtual void print(void);
+		virtual void print(void);
 		virtual void printLigne(int numLigne);
 };
 
@@ -38,7 +38,7 @@ class Debug : public Bloc
 		Debug(char const caractere, int setHeight, int setWidth, int setRefHeight, int setRefWidth);
 		~Debug();
 
-		void print(void);
+		virtual void print(void);
 		virtual void printLigne(int numLigne);
 };
 
@@ -55,7 +55,7 @@ class Over : public Bloc
 		Over(Bloc* debugOver, Bloc* debugUnder);
 		~Over();
 
-		void print(void);
+		virtual void print(void);
 		virtual void printLigne(int numLigne);
 
 		void bourrage(int a, int b);

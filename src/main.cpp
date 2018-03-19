@@ -14,27 +14,6 @@ int main(){
 	Over* BlocOver = new Over(BlocDebug, BlocDebug2);
 	Over* BlocOver2 = new Over(BlocOver, BlocDebug3);
 
-/*
-	cout << endl <<"Affichage d'un Bloc Debug" << endl;
-	BlocDebug->print();	
-
-	cout << endl << "Affichage d'une ligne Debug" << endl;
-	BlocDebug->printLigne(0);	
-*/
-
-	BlocDebug->print();
-	BlocDebug2->print();
-	BlocDebug3->print();
-	
-	cout << endl << "Affichage d'un Bloc Over (Spec)" << endl;
-	BlocOver->printSpec();		
-	
-	cout << endl << "Affichage d'un Bloc Over (Spec)" << endl;
-	BlocOver2->printSpec();		
-
-	cout << endl << "Affichage d'un Bloc Over" << endl;
-	BlocOver->print();		
-
 	cout << endl << "Affichage d'un Bloc Over" << endl;
 	BlocOver2->print();		
 

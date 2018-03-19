@@ -27,11 +27,9 @@ void Bloc::printSpec(void)
 	cout << "refWidth :" << refWidth << endl;
 }
 
+void Bloc::print(void){}
 
-void Bloc::printLigne(int numLigne)
-{
-	
-}
+void Bloc::printLigne(int numLigne){}
 
 
 /***************/
@@ -79,12 +77,8 @@ void Debug::printLigne(int numLigne)
 Over::Over() 
 	: Bloc(1,1,0,0), over(NULL), under(NULL){}
 
-
-
 Over::Over(Bloc* blocOver, Bloc* blocUnder)
 	: Bloc(
-			//			'.',
-
 			blocOver->getHeight() + blocUnder->getHeight(), 				//height
 
 			max( 								//width
@@ -98,9 +92,10 @@ Over::Over(Bloc* blocOver, Bloc* blocUnder)
 
 			(int)(blocOver->getHeight() - blocOver->getRefHeight() + blocUnder->getRefHeight())/2 + blocOver->getRefHeight(),		//refheight
 
-			max(blocOver->getRefWidth(),	blocUnder->getRefWidth())),			//refwidth
-	// cas1 		//blocUnder->getRefWidth()
-	// cas2 		//blocOver->getRefWidth()
+			max(blocOver->getRefWidth(),	blocUnder->getRefWidth())			//refwidth
+			// cas1 		//blocUnder->getRefWidth()
+			// cas2 		//blocOver->getRefWidth()
+	      ),
 	over(blocOver),
 	under(blocUnder){}
 
@@ -111,7 +106,6 @@ void Over::print(void)
 {
 	for(int i = -this->getRefHeight(); i < this->getHeight() - this->getRefHeight(); i++)
 	{
-		cout << i << ". ";
 		this->printLigne(i);
 		cout << endl;
 	}
@@ -119,8 +113,6 @@ void Over::print(void)
 
 void Over::printLigne(int numLigne)
 {
-
-
 	int borneOverInf, borneOverSup, borneUnderInf, borneUnderSup;
 
 	borneOverInf = -this->getRefHeight();
