@@ -52,7 +52,7 @@ class Over : public Bloc
 
 	public:
 		Over();
-		Over(Bloc* debugOver, Bloc* debugUnder);
+		Over(Bloc* blocOver, Bloc* blocUnder);
 		~Over();
 
 		virtual void print(void);
@@ -61,3 +61,20 @@ class Over : public Bloc
 		void bourrage(int a, int b);
 };
 
+
+class Beside : public Bloc
+{
+	private:
+		Bloc* left;
+		Bloc* right;
+
+	public:
+		Beside();
+		Beside(Bloc* blocLeft, Bloc* blocRight);
+		~Beside();
+
+		virtual void print(void);
+		virtual void printLigne(int numLigne);
+
+		void bourrage(int a, int b);
+};

@@ -99,7 +99,11 @@ Over::Over(Bloc* blocOver, Bloc* blocUnder)
 	over(blocOver),
 	under(blocUnder){}
 
-	Over::~Over(){}
+Over::~Over()
+{
+	delete(over);
+	delete(under);
+}
 
 
 void Over::print(void)
@@ -156,5 +160,98 @@ void Over::printLigne(int numLigne)
 void Over::bourrage(int a, int b)
 {
 	for(int i = 0; i < max(a,b) - min(a,b); i++) { cout << BOURRAGE; }
+}
+
+
+/****************/
+/* class Beside */
+/****************/
+
+
+Beside::Beside() 
+	: Bloc(1,1,0,0), left(NULL), right(NULL){}
+
+Beside::Beside(Bloc* blocLeft, Bloc* blocRight)
+	: Bloc(
+			// height
+			max( 								
+				max(blocLeft->getHeight() , blocRight->getHeight()), 
+				max(blocLeft->getRefHeight() + blocRight->getHeight() - blocRight->getRefHeight(),
+					blocRight->getRefHeight() + blocLeft->getHeight() - blocLeft->getRefHeight())
+			   ),
+
+
+			// width
+			blocLeft->getWidth()+blocRight->getWidth(),	
+
+			// refHeight
+			max(blocLeft->getRefHeight(), blocRight->getRefHeight()),
+
+			// refWidth
+			(int)((blocLeft->getWidth() + blocRight->getRefWidth() - blocLeft->getRefWidth())/2 + blocLeft->getRefWidth() ) 	
+	      ),
+	left(blocLeft),
+	right(blocRight){}
+
+Beside::~Beside()
+{
+	delete(left);
+	delete(right);
+}
+
+
+void Beside::print(void)
+{
+
+	for(int i = -this->getRefHeight(); i < this->getHeight() - this->getRefHeight(); i++)
+	{
+		this->printLigne(i);
+		cout << endl;
+	}
+
+}
+
+void Beside::printLigne(int numLigne)
+{
+
+	int borneLeftInf, borneLeftSup, borneRightInf, borneRightSup;
+
+	borneLeftInf = - left->getRefHeight();
+	borneLeftSup =  - left->getRefHeight() + left->getHeight() -1 ;
+	borneRightInf = - right->getRefHeight();
+	borneRightSup = - right->getRefHeight() + right->getHeight() -1 ;
+
+/*
+	cout << "Bornes ";
+	cout << " ";
+	cout << borneLeftInf;
+	cout << " ";
+	cout << borneLeftSup;
+	cout << " ";
+	cout << borneRightInf;
+	cout << " ";
+	cout << borneRightSup;
+	cout << " ";
+*/
+
+	if (numLigne >= borneLeftInf && numLigne <= borneLeftSup )
+	{
+		left->printLigne(numLigne);		
+	} else {
+		this->bourrage(left->getWidth(),0);
+	}
+
+	if (numLigne >= borneRightInf && numLigne <= borneRightSup )
+	{
+		right->printLigne(numLigne);		
+	} else {
+		this->bourrage(right->getWidth(),0);
+	}
+
+}
+
+void Beside::bourrage(int a, int b)
+{
+		for(int i = 0; i < max(a,b) - min(a,b); i++) { cout << BOURRAGE; }
 }
 
